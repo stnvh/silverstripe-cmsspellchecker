@@ -28,7 +28,6 @@ example in config.yml:
 CMSSpellChecker:
   engine: 'PSpellShell'
   shell: '/usr/local/bin/aspell'
-
 ```
 
 ### Options:
