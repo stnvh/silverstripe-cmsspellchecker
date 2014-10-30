@@ -3,6 +3,8 @@
 
 Add TinyMCE spell checker support [without having to edit core](http://doc.silverstripe.org/framework/en/topics/rich-text-editing/#integrating-a-spellchecker-for-tinymce). Uses the config API to set options.
 
+Tested and working on versions 3.1 down to 2.4.
+
 By Stan Hutcheon - [Bigfork Ltd](http://bigfork.co.uk)
 
 ## Installation:
@@ -10,24 +12,32 @@ By Stan Hutcheon - [Bigfork Ltd](http://bigfork.co.uk)
 ### Composer:
 
 ```
-composer require "stnvh/silverstripe-cmsspellchecker" "1.*"
+composer require "stnvh/silverstripe-cmsspellchecker" "~1"
 ```
 
 ### Download:
 
-Clone this repo into a folder called ```spellchecker``` in your silverstripe installation folder.
+Clone this repo into a folder called ```cmsspellchecker``` in your silverstripe installation folder.
 
 ### Usage:
 
-This assumes you have **pspell** installed, either the binary (*aspell*), PHP module or both.
+This assumes you have *pspell* installed or the *aspell* binary installed on your webserver.
 
-If you have the pspell PHP module installed it should work straight away. If not you may need to change your server config, or add some options in your ```mysite/_config/config.yml```
+If you have the pspell module installed it should work straight away. 
+If you have just the binary installed, then you'll need to add something like below to ```mysite/_config/config.yml```:
 
-example in config.yml:
 ```yml
 CMSSpellChecker:
   engine: 'PSpellShell'
   shell: '/usr/local/bin/aspell'
+```
+
+For pre Silverstripe 3.0, set config via method calls:
+
+*mysite/_config.php*:
+```php
+CMSSpellChecker::set_engine('PSpellShell');
+CMSSpellChecker::set_shell('/usr/local/bin/aspell');
 ```
 
 ### Options:
