@@ -11,7 +11,6 @@ if(!class_exists('Config')) {
 	Object::add_extension('CMSMain', 'CMSSpellChecker');
 	$url = '/spellcheck';
 } else {
-	define('SPELLCHECK_POST_SS3', false);
 	$rules = Config::inst()->get('Director', 'rules');
 	$admin = array_search('AdminRootController', $rules);
 }

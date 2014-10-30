@@ -6,6 +6,17 @@ class CMSSpellChecker extends Extension {
 		'spellcheck'
 	);
 
+	public static $engine = 'PSpell';
+	public static $shell = '/usr/bin/aspell';
+
+	public static function set_engine($engine = 'PSpell') {
+		self::$engine = $engine;
+	}
+
+	public static function set_shell($shell = '/usr/bin/aspell') {
+		self::$shell = $shell;
+	}
+
 	public function spellcheck(SS_HTTPRequest $request) {
 		$this->owner->request->addHeader('Content-Type', 'text/plain');
 		$this->owner->request->addHeader('Content-Encoding', 'UTF-8');
@@ -15,12 +26,12 @@ class CMSSpellChecker extends Extension {
 		$this->owner->request->addHeader('Cache-Control', 'post-check=0, pre-check=0');
 		$this->owner->request->addHeader('Pragma', 'no-cache');
 
-		if(SPELLCHECK_POST_SS3) {
-			$engine = SPELLCHECK_ENGINE ?: 'PSpell';
-			$shell = SPELLCHECK_SHELL ?: '/usr/bin/aspell';
-		} else {
-			$engine = Config::inst()->get('CMSSpellChecker', 'engine') ?: 'PSpell';
-			$shell = Config::inst()->get('CMSSpellChecker', 'shell') ?: '/usr/bin/aspell';
+		$engine = self::$engine;
+		$shell = self::$shell;
+
+		if(!defined(SPELLCHECK_POST_SS3)) {
+			$engine = Config::inst()->get('CMSSpellChecker', 'engine') ?: $engine;
+			$shell = Config::inst()->get('CMSSpellChecker', 'shell') ?: $shell;
 		}
 
 		$config['general.engine'] = $engine;
