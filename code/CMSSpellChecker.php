@@ -29,7 +29,7 @@ class CMSSpellChecker extends Extension {
 		$engine = self::$engine;
 		$shell = self::$shell;
 
-		if(!defined(SPELLCHECK_POST_SS3)) {
+		if(!defined('SPELLCHECK_POST_SS3')) {
 			$engine = Config::inst()->get('CMSSpellChecker', 'engine') ?: $engine;
 			$shell = Config::inst()->get('CMSSpellChecker', 'shell') ?: $shell;
 		}
