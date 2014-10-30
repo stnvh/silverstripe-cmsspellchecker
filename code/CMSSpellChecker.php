@@ -1,8 +1,8 @@
 <?php
 
-class CMSSpellChecker extends LeftAndMainExtension {
+class CMSSpellChecker extends Extension {
 
-	private static $allowed_actions = array(
+	public static $allowed_actions = array(
 		'spellcheck'
 	);
 
@@ -15,7 +15,15 @@ class CMSSpellChecker extends LeftAndMainExtension {
 		$this->owner->request->addHeader('Cache-Control', 'post-check=0, pre-check=0');
 		$this->owner->request->addHeader('Pragma', 'no-cache');
 
-		$config['general.engine'] = Config::inst()->get('CMSSpellChecker', 'engine') ?: 'PSpell';
+		if(SPELLCHECK_POST_SS3) {
+			$engine = SPELLCHECK_ENGINE ?: 'PSpell';
+			$shell = SPELLCHECK_SHELL ?: '/usr/bin/aspell';
+		} else {
+			$engine = Config::inst()->get('CMSSpellChecker', 'engine') ?: 'PSpell';
+			$shell = Config::inst()->get('CMSSpellChecker', 'shell') ?: '/usr/bin/aspell';
+		}
+
+		$config['general.engine'] = $engine;
 
 		$config['PSpell.mode'] = PSPELL_FAST;
 		$config['PSpell.spelling'] = '';
@@ -23,7 +31,7 @@ class CMSSpellChecker extends LeftAndMainExtension {
 		$config['PSpell.encoding'] = '';
 
 		$config['PSpellShell.mode'] = PSPELL_FAST;
-		$config['PSpellShell.aspell'] = Config::inst()->get('CMSSpellChecker', 'shell') ?: '/usr/bin/aspell';
+		$config['PSpellShell.aspell'] = $shell;
 		$config['PSpellShell.tmp'] = '/tmp';
 
 		$output = array(
