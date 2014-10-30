@@ -76,7 +76,7 @@ class CMSSpellChecker extends Extension {
 			$result = call_user_func_array(array($spellchecker, $input['method']), $input['params']);
 		}
 
-		$output['id'] = $input->id;
+		$output['id'] = $input['id'];
 		$output['result'] = $result;
 
 		echo json_encode($output);
