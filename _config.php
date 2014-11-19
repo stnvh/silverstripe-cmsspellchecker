@@ -18,5 +18,5 @@ if(!class_exists('Config')) {
 HtmlEditorConfig::get('cms')->enablePlugins('spellchecker');
 HtmlEditorConfig::get('cms')->setOptions(array(
 	'browser_spellcheck' => false,
-    'spellchecker_rpc_url' => $admin . $url
+	'spellchecker_rpc_url' => $admin . $url
 ));
