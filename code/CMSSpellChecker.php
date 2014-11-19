@@ -34,6 +34,10 @@ class CMSSpellChecker extends Extension {
 			$shell = Config::inst()->get('CMSSpellChecker', 'shell') ?: $shell;
 		}
 
+		if(!defined('PSPELL_FAST'))         define('PSPELL_FAST', 1);         # Fast mode (least number of suggestions)
+		if(!defined('PSPELL_NORMAL'))       define('PSPELL_NORMAL', 2);       # Normal mode (more suggestions)
+		if(!defined('PSPELL_BAD_SPELLERS')) define('PSPELL_BAD_SPELLERS', 3); # Slow mode (a lot of suggestions)
+
 		$config['general.engine'] = $engine;
 
 		$config['PSpell.mode'] = PSPELL_FAST;

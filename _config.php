@@ -12,13 +12,11 @@ if(!class_exists('Config')) {
 	$url = '/spellcheck';
 } else {
 	$rules = Config::inst()->get('Director', 'rules');
-	$admin = array_search('AdminRootController', $rules);
+	$admin = array_search('AdminRootController', $rules) ?: $admin;
 }
 
-HtmlEditorConfig::get('cms')->setOption('browser_spellcheck', 'false');
 HtmlEditorConfig::get('cms')->enablePlugins('spellchecker');
-
-HtmlEditorConfig::get('cms')->setOption(
-    'spellchecker_rpc_url',
-    $admin . $url
-);
+HtmlEditorConfig::get('cms')->setOptions(array(
+	'browser_spellcheck' => false,
+    'spellchecker_rpc_url' => $admin . $url
+));
